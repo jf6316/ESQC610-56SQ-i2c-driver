@@ -54,11 +54,11 @@ static ssize_t psu_status_get(struct device *dev, struct device_attribute *da, c
             {
                 if (status & res)
                 {
-                    sprintf(buf, "%sPSU %d is not present\n", buf, i);
+                    sprintf(buf, "%sPSU %d is present\n", buf, i);
                 }
                 else
                 {
-                    sprintf(buf, "%sPSU %d is present\n", buf, i);
+                    sprintf(buf, "%sPSU %d is not present\n", buf, i);
                 }
                 res = res << 1;
             }
