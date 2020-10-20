@@ -50,7 +50,7 @@ static ssize_t psu_status_get(struct device *dev, struct device_attribute *da, c
     switch (attr->index)
     {
         case PSU_PRESENT:
-            for (i = 2; i >= 1; i--)
+            for (i = 1; i <= 2; i++)
             {
                 if (status & res)
                 {
@@ -68,21 +68,21 @@ static ssize_t psu_status_get(struct device *dev, struct device_attribute *da, c
             res = res << 2;
             if (status & res)
             {
-                sprintf(buf, "%sPSU 2 is not power Good\n", buf);
-            }
-            else
-            {
-                sprintf(buf, "%sPSU 2 is power Good\n", buf);
-            }
-            res = 0x1;
-            res = res << 3;
-            if (status & res)
-            {
                 sprintf(buf, "%sPSU 1 is not power Good\n", buf);
             }
             else
             {
                 sprintf(buf, "%sPSU 1 is power Good\n", buf);
+            }
+            res = 0x1;
+            res = res << 3;
+            if (status & res)
+            {
+                sprintf(buf, "%sPSU 2 is not power Good\n", buf);
+            }
+            else
+            {
+                sprintf(buf, "%sPSU 2 is power Good\n", buf);
             }
             break;
     }
@@ -194,7 +194,7 @@ static ssize_t psu_module_get(struct device *dev, struct device_attribute *da, c
         {0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5a},
         {0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6a}
     };
-    u16 psu_status [11] = {0}; 
+    u32 psu_status [11] = {0}; 
     u8 mask = 0x1;
     u8 i = 0;
     u16 u16_val = 0;
